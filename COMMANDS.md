@@ -1,5 +1,6 @@
 ```bash
 apt install libopenmpi-dev
+apt install openmpi-bin openmpi-common
 apt install libnccl2 libnccl-dev
 
 make MPI=1 MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
