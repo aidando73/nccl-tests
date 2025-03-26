@@ -1,1 +1,2 @@
-2akfl65n0ptnqb.runpod.internal slots=2
+manager slots=2
+worker1 slots=2
