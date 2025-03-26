@@ -1,5 +1,6 @@
 ```bash
 apt install libopenmpi-dev
+apt install openmpi-bin openmpi-common
 apt install libnccl2 libnccl-dev
 
 make MPI=1 MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
@@ -10,6 +11,7 @@ mpirun -np 4 -N 2 --allow-run-as-root -hostfile hosts.txt ./build/all_reduce_per
 
 
 # MPI cluster setup
+apt install sudo
 adduser mpiuser
 usermod -aG sudo mpiuser
 # Password 123
@@ -19,4 +21,5 @@ ssh-keygen -t rsa
 cd ~/.ssh
 cat id_rsa.pub >> authorized_keys
 ssh-copy-id worker1
+
 ```
