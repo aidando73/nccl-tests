@@ -10,6 +10,7 @@ mpirun -np 4 -N 2 --allow-run-as-root -hostfile hosts.txt ./build/all_reduce_per
 
 
 # MPI cluster setup
+apt install sudo
 adduser mpiuser
 usermod -aG sudo mpiuser
 # Password 123
@@ -19,4 +20,14 @@ ssh-keygen -t rsa
 cd ~/.ssh
 cat id_rsa.pub >> authorized_keys
 ssh-copy-id worker1
+
+
+
+# Worker node setup
+apt install sudo
+apt install libopenmpi-dev
+apt install libnccl2 libnccl-dev
+adduser mpiuser
+usermod -aG sudo mpiuser
+# Password 123
 ```
