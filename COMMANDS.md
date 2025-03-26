@@ -22,4 +22,13 @@ cd ~/.ssh
 cat id_rsa.pub >> authorized_keys
 ssh-copy-id worker1
 
+
+
+# Worker node setup
+apt install sudo
+apt install libopenmpi-dev
+apt install libnccl2 libnccl-dev
+adduser mpiuser
+usermod -aG sudo mpiuser
+# Password 123
 ```
