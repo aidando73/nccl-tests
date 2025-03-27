@@ -1,0 +1,91 @@
+mpiuser@6a3e6142ec3e:/workspace/nccl-tests$ mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
+# nThread 1 nGpus 2 minBytes 8 maxBytes 134217728 step: 2(factor) warmup iters: 5 iters: 20 agg iters: 1 validation: 1 graph: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid   5334 on 6a3e6142ec3e device  0 [0000:61:00] NVIDIA L40
+#  Rank  1 Group  0 Pid   5334 on 6a3e6142ec3e device  1 [0000:e1:00] NVIDIA L40
+#  Rank  2 Group  0 Pid   6661 on 8d393995ec76 device  0 [0000:a1:00] NVIDIA L40
+#  Rank  3 Group  0 Pid   6661 on 8d393995ec76 device  1 [0000:c1:00] NVIDIA L40
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw #wrong     time   algbw   busbw #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)            (us)  (GB/s)  (GB/s)       
+8d393995ec76: Test NCCL failure common.cu:394 'unhandled system error (run with NCCL_DEBUG=INFO for details) / '
+ .. 8d393995ec76 pid 6661: Test failure common.cu:592
+ .. 8d393995ec76 pid 6661: Test failure all_reduce.cu:90
+ .. 8d393995ec76 pid 6661: Test failure common.cu:625
+ .. 8d393995ec76 pid 6661: Test failure common.cu:1123
+ .. 8d393995ec76 pid 6661: Test failure common.cu:893
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[51634,1],1]
+  Exit code:    3
+--------------------------------------------------------------------------
+mpiuser@6a3e6142ec3e:/workspace/nccl-tests$ NCCL_DEBUG=INFO mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
+# nThread 1 nGpus 2 minBytes 8 maxBytes 134217728 step: 2(factor) warmup iters: 5 iters: 20 agg iters: 1 validation: 1 graph: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid   5385 on 6a3e6142ec3e device  0 [0000:61:00] NVIDIA L40
+#  Rank  1 Group  0 Pid   5385 on 6a3e6142ec3e device  1 [0000:e1:00] NVIDIA L40
+#  Rank  2 Group  0 Pid   6877 on 8d393995ec76 device  0 [0000:a1:00] NVIDIA L40
+#  Rank  3 Group  0 Pid   6877 on 8d393995ec76 device  1 [0000:c1:00] NVIDIA L40
+6a3e6142ec3e:5385:5385 [0] NCCL INFO Bootstrap: Using podnet1:10.0.25.85<0>
+6a3e6142ec3e:5385:5385 [0] NCCL INFO cudaDriverVersion 12040
+6a3e6142ec3e:5385:5385 [0] NCCL INFO NCCL version 2.26.2+cuda12.8
+6a3e6142ec3e:5385:5392 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. Using internal net plugin.
+6a3e6142ec3e:5385:5392 [0] NCCL INFO NET/IB : No device found.
+6a3e6142ec3e:5385:5392 [0] NCCL INFO NET/IB : Using [RO]; OOB podnet1:10.0.25.85<0>
+6a3e6142ec3e:5385:5392 [0] NCCL INFO NET/Socket : Using [0]podnet1:10.0.25.85<0> [1]eth0:172.20.0.2<0>
+6a3e6142ec3e:5385:5392 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+6a3e6142ec3e:5385:5392 [0] NCCL INFO Using network Socket
+6a3e6142ec3e:5385:5393 [1] NCCL INFO Using network Socket
+6a3e6142ec3e:5385:5393 [1] NCCL INFO ncclCommInitRank comm 0x55f27684cc50 rank 1 nranks 4 cudaDev 1 nvmlDev 1 busId e1000 commId 0x15973736e6eece7a - Init START
+6a3e6142ec3e:5385:5392 [0] NCCL INFO ncclCommInitRank comm 0x55f2767c5130 rank 0 nranks 4 cudaDev 0 nvmlDev 0 busId 61000 commId 0x15973736e6eece7a - Init START
+6a3e6142ec3e:5385:5393 [1] NCCL INFO RAS client listening socket at ::1<28028>
+6a3e6142ec3e:5385:5393 [1] NCCL INFO Bootstrap timings total 0.077921 (create 0.000056, send 0.000304, recv 0.045786, ring 0.020441, delay 0.000001)
+6a3e6142ec3e:5385:5392 [0] NCCL INFO Bootstrap timings total 0.079525 (create 0.000033, send 0.023545, recv 0.022604, ring 0.011116, delay 0.000000)
+6a3e6142ec3e:5385:5392 [0] NCCL INFO Setting affinity for GPU 0 to 01,00000000,00000000,00000000,00000001
+6a3e6142ec3e:5385:5392 [0] NCCL INFO comm 0x55f2767c5130 rank 0 nRanks 4 nNodes 2 localRanks 2 localRank 0 MNNVL 0
+6a3e6142ec3e:5385:5392 [0] NCCL INFO Channel 00/02 : 0 1 2 3
+6a3e6142ec3e:5385:5392 [0] NCCL INFO Channel 01/02 : 0 1 2 3
+6a3e6142ec3e:5385:5392 [0] NCCL INFO Trees [0] 1/2/-1->0->-1 [1] 1/-1/-1->0->2
+6a3e6142ec3e:5385:5392 [0] NCCL INFO P2P Chunksize set to 131072
+6a3e6142ec3e:5385:5392 [0] NCCL INFO Check P2P Type intraNodeP2pSupport 1 directMode 1
+6a3e6142ec3e:5385:5395 [0] NCCL INFO [Proxy Service] Device 0 CPU core 128
+6a3e6142ec3e:5385:5396 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 128
+6a3e6142ec3e:5385:5393 [1] NCCL INFO comm 0x55f27684cc50 rank 1 nRanks 4 nNodes 2 localRanks 2 localRank 1 MNNVL 0
+6a3e6142ec3e:5385:5393 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+6a3e6142ec3e:5385:5393 [1] NCCL INFO P2P Chunksize set to 131072
+6a3e6142ec3e:5385:5397 [1] NCCL INFO [Proxy Service] Device 1 CPU core 128
+6a3e6142ec3e:5385:5398 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 128
+6a3e6142ec3e:5385:5392 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+6a3e6142ec3e:5385:5392 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+6a3e6142ec3e:5385:5392 [0] NCCL INFO CC Off, workFifoBytes 1048576
+6a3e6142ec3e:5385:5393 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+6a3e6142ec3e:5385:5393 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+6a3e6142ec3e:5385:5393 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+6a3e6142ec3e:5385:5393 [1] NCCL INFO ncclCommInitRank comm 0x55f27684cc50 rank 1 nranks 4 cudaDev 1 nvmlDev 1 busId e1000 commId 0x15973736e6eece7a - Init COMPLETE
+6a3e6142ec3e:5385:5393 [1] NCCL INFO Init timings - ncclCommInitRank: rank 1 nranks 4 total 0.68 (kernels 0.41, alloc 0.02, bootstrap 0.08, allgathers 0.04, topo 0.04, graphs 0.00, connections 0.08, rest 0.00)
+6a3e6142ec3e:5385:5392 [0] NCCL INFO ncclCommInitRank comm 0x55f2767c5130 rank 0 nranks 4 cudaDev 0 nvmlDev 0 busId 61000 commId 0x15973736e6eece7a - Init COMPLETE
+6a3e6142ec3e:5385:5392 [0] NCCL INFO Init timings - ncclCommInitRank: rank 0 nranks 4 total 0.68 (kernels 0.40, alloc 0.03, bootstrap 0.08, allgathers 0.06, topo 0.02, graphs 0.00, connections 0.08, rest 0.01)
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw #wrong     time   algbw   busbw #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)            (us)  (GB/s)  (GB/s)       
+6a3e6142ec3e:5385:5400 [0] NCCL INFO Channel 00/0 : 0[0] -> 1[1] via P2P/direct pointer
+6a3e6142ec3e:5385:5400 [0] NCCL INFO Channel 01/0 : 0[0] -> 1[1] via P2P/direct pointer
+6a3e6142ec3e:5385:5399 [1] NCCL INFO Channel 00/0 : 1[1] -> 0[0] via P2P/direct pointer
+6a3e6142ec3e:5385:5399 [1] NCCL INFO Channel 01/0 : 1[1] -> 0[0] via P2P/direct pointer
+6a3e6142ec3e:5385:5401 [0] NCCL INFO [Proxy Progress] Device 0 CPU core 0
+6a3e6142ec3e:5385:5400 [0] NCCL INFO Channel 00/0 : 2[0] -> 0[0] [receive] via NET/Socket/1
+6a3e6142ec3e:5385:5400 [0] NCCL INFO Channel 01/0 : 2[0] -> 0[0] [receive] via NET/Socket/1
+6a3e6142ec3e:5385:5400 [0] NCCL INFO Channel 00/0 : 0[0] -> 2[0] [send] via NET/Socket/1
+6a3e6142ec3e:5385:5400 [0] NCCL INFO Channel 01/0 : 0[0] -> 2[0] [send] via NET/Socket/1
+
+

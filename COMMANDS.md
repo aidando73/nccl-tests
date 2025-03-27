@@ -29,7 +29,13 @@ mpirun -np 4 -N 2 -hostfile hosts.txt ./build/all_reduce_perf -b 8 -e 8G -f 2 -g
 
 mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 8G -f 2 -g 1
 
-NCCL_DEBUG=INFO mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
+export NCCL_DEBUG=INFO
+export NCCL_SOCKET_IFNAME=podnet1
+mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
+
+export NCCL_DEBUG=INFO
+export NCCL_SOCKET_IFNAME=podnet1
+mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 256 -f 2 -g 2
 
 # MPI cluster setup
 # Password 123
