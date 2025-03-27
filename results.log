@@ -158,3 +158,107 @@ mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_red
 # Out of bounds values : 0 OK
 # Avg bus bandwidth    : 8.2958e-06 
 #
+
+
+mpiuser@6a3e6142ec3e:/workspace/nccl-tests$ mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tes/build/all_reduce_perf -b 8 -e 1KB -f 2 -g 2 --timeout 10
+------------------------------------------------------------
+A process or daemon was unable to complete a TCP connection
+to another process:
+  Local host:    8d393995ec76
+  Remote host:   6a3e6142ec3e
+This is usually caused by a firewall on the remote host. Please
+check that any firewall (e.g., iptables) has been disabled and
+try again.
+------------------------------------------------------------
+# nThread 1 nGpus 2 minBytes 8 maxBytes 1024 step: 2(factor) warmup iters: 5 iters: 20 agg iters: 1 validation: 1 graph: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid   5519 on 6a3e6142ec3e device  0 [0000:61:00] NVIDIA L40
+#  Rank  1 Group  0 Pid   5519 on 6a3e6142ec3e device  1 [0000:e1:00] NVIDIA L40
+#  Rank  2 Group  0 Pid   9435 on 8d393995ec76 device  0 [0000:a1:00] NVIDIA L40
+#  Rank  3 Group  0 Pid   9435 on 8d393995ec76 device  1 [0000:c1:00] NVIDIA L40
+6a3e6142ec3e:5519:5519 [0] NCCL INFO NCCL_SOCKET_IFNAME set by environment to podnet1
+6a3e6142ec3e:5519:5519 [0] NCCL INFO Bootstrap: Using podnet1:10.0.25.85<0>
+6a3e6142ec3e:5519:5519 [0] NCCL INFO cudaDriverVersion 12040
+6a3e6142ec3e:5519:5519 [0] NCCL INFO NCCL version 2.26.2+cuda12.8
+6a3e6142ec3e:5519:5526 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. Using internal net plugin.
+6a3e6142ec3e:5519:5526 [0] NCCL INFO NCCL_SOCKET_IFNAME set by environment to podnet1
+6a3e6142ec3e:5519:5526 [0] NCCL INFO NET/IB : No device found.
+6a3e6142ec3e:5519:5526 [0] NCCL INFO NET/IB : Using [RO]; OOB podnet1:10.0.25.85<0>
+6a3e6142ec3e:5519:5526 [0] NCCL INFO NCCL_SOCKET_IFNAME set by environment to podnet1
+6a3e6142ec3e:5519:5526 [0] NCCL INFO NET/Socket : Using [0]podnet1:10.0.25.85<0>
+6a3e6142ec3e:5519:5526 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+6a3e6142ec3e:5519:5526 [0] NCCL INFO Using network Socket
+6a3e6142ec3e:5519:5527 [1] NCCL INFO Using network Socket
+6a3e6142ec3e:5519:5527 [1] NCCL INFO ncclCommInitRank comm 0x564ccd4392c0 rank 1 nranks 4 cudaDev 1 nvmlDev 1 busId e1000 commId 0xd4476a289f03d2ef - Init START
+6a3e6142ec3e:5519:5526 [0] NCCL INFO ncclCommInitRank comm 0x564ccd3b17a0 rank 0 nranks 4 cudaDev 0 nvmlDev 0 busId 61000 commId 0xd4476a289f03d2ef - Init START
+6a3e6142ec3e:5519:5527 [1] NCCL INFO RAS client listening socket at ::1<28028>
+6a3e6142ec3e:5519:5526 [0] NCCL INFO Bootstrap timings total 0.133925 (create 0.000025, send 0.000110, recv 0.000139, ring 0.011285, delay 0.000000)
+6a3e6142ec3e:5519:5527 [1] NCCL INFO Bootstrap timings total 0.152617 (create 0.000069, send 0.000281, recv 0.120006, ring 0.020302, delay 0.000001)
+
+[2025-03-27 05:17:49] 6a3e6142ec3e:5519:5527 [1] graph/search.cc:1127 NCCL WARN Could not find a path for pattern 4, falling back to simple order
+
+[2025-03-27 05:17:49] 6a3e6142ec3e:5519:5527 [1] graph/search.cc:1127 NCCL WARN Could not find a path for pattern 1, falling back to simple order
+6a3e6142ec3e:5519:5526 [0] NCCL INFO Setting affinity for GPU 0 to 01,00000000,00000000,00000000,00000001
+
+[2025-03-27 05:17:49] 6a3e6142ec3e:5519:5526 [0] graph/search.cc:1127 NCCL WARN Could not find a path for pattern 4, falling back to simple order
+
+[2025-03-27 05:17:49] 6a3e6142ec3e:5519:5526 [0] graph/search.cc:1127 NCCL WARN Could not find a path for pattern 1, falling back to simple order
+6a3e6142ec3e:5519:5527 [1] NCCL INFO comm 0x564ccd4392c0 rank 1 nRanks 4 nNodes 2 localRanks 2 localRank 1 MNNVL 0
+6a3e6142ec3e:5519:5526 [0] NCCL INFO comm 0x564ccd3b17a0 rank 0 nRanks 4 nNodes 2 localRanks 2 localRank 0 MNNVL 0
+6a3e6142ec3e:5519:5527 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+6a3e6142ec3e:5519:5527 [1] NCCL INFO P2P Chunksize set to 131072
+6a3e6142ec3e:5519:5526 [0] NCCL INFO Channel 00/02 : 0 1 2 3
+6a3e6142ec3e:5519:5526 [0] NCCL INFO Channel 01/02 : 0 1 2 3
+6a3e6142ec3e:5519:5526 [0] NCCL INFO Trees [0] 1/2/-1->0->-1 [1] 1/-1/-1->0->2
+6a3e6142ec3e:5519:5526 [0] NCCL INFO P2P Chunksize set to 131072
+6a3e6142ec3e:5519:5526 [0] NCCL INFO Check P2P Type intraNodeP2pSupport 1 directMode 1
+6a3e6142ec3e:5519:5530 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 128
+6a3e6142ec3e:5519:5529 [1] NCCL INFO [Proxy Service] Device 1 CPU core 0
+6a3e6142ec3e:5519:5532 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 0
+6a3e6142ec3e:5519:5531 [0] NCCL INFO [Proxy Service] Device 0 CPU core 128
+6a3e6142ec3e:5519:5527 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+6a3e6142ec3e:5519:5527 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+6a3e6142ec3e:5519:5526 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+6a3e6142ec3e:5519:5526 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+6a3e6142ec3e:5519:5526 [0] NCCL INFO CC Off, workFifoBytes 1048576
+6a3e6142ec3e:5519:5527 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+6a3e6142ec3e:5519:5527 [1] NCCL INFO ncclCommInitRank comm 0x564ccd4392c0 rank 1 nranks 4 cudaDev 1 nvmlDev 1 busId e1000 commId 0xd4476a289f03d2ef - Init COMPLETE
+6a3e6142ec3e:5519:5526 [0] NCCL INFO ncclCommInitRank comm 0x564ccd3b17a0 rank 0 nranks 4 cudaDev 0 nvmlDev 0 busId 61000 commId 0xd4476a289f03d2ef - Init COMPLETE
+6a3e6142ec3e:5519:5527 [1] NCCL INFO Init timings - ncclCommInitRank: rank 1 nranks 4 total 0.47 (kernels 0.22, alloc 0.05, bootstrap 0.15, allgathers 0.03, topo 0.01, graphs 0.00, connections 0.00, rest 0.01)
+6a3e6142ec3e:5519:5526 [0] NCCL INFO Init timings - ncclCommInitRank: rank 0 nranks 4 total 0.47 (kernels 0.22, alloc 0.07, bootstrap 0.13, allgathers 0.04, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw #wrong     time   algbw   busbw #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)            (us)  (GB/s)  (GB/s)       
+6a3e6142ec3e:5519:5534 [0] NCCL INFO Channel 00/0 : 3[1] -> 0[0] [receive] via NET/Socket/0
+6a3e6142ec3e:5519:5534 [0] NCCL INFO Channel 01/0 : 3[1] -> 0[0] [receive] via NET/Socket/0
+6a3e6142ec3e:5519:5534 [0] NCCL INFO Channel 00/0 : 0[0] -> 1[1] via P2P/direct pointer
+6a3e6142ec3e:5519:5534 [0] NCCL INFO Channel 01/0 : 0[0] -> 1[1] via P2P/direct pointer
+6a3e6142ec3e:5519:5535 [0] NCCL INFO [Proxy Progress] Device 0 CPU core 0
+6a3e6142ec3e:5519:5533 [1] NCCL INFO Channel 00/0 : 1[1] -> 2[0] [send] via NET/Socket/0
+6a3e6142ec3e:5519:5533 [1] NCCL INFO Channel 01/0 : 1[1] -> 2[0] [send] via NET/Socket/0
+6a3e6142ec3e:5519:5536 [1] NCCL INFO [Proxy Progress] Device 1 CPU core 128
+6a3e6142ec3e:5519:5533 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 0
+6a3e6142ec3e:5519:5534 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 0
+6a3e6142ec3e:5519:5537 [1] NCCL INFO Channel 00/0 : 1[1] -> 0[0] via P2P/direct pointer
+6a3e6142ec3e:5519:5537 [1] NCCL INFO Channel 01/0 : 1[1] -> 0[0] via P2P/direct pointer
+6a3e6142ec3e:5519:5538 [0] NCCL INFO Channel 00/0 : 2[0] -> 0[0] [receive] via NET/Socket/0
+6a3e6142ec3e:5519:5538 [0] NCCL INFO Channel 01/0 : 2[0] -> 0[0] [receive] via NET/Socket/0
+6a3e6142ec3e:5519:5538 [0] NCCL INFO Channel 00/0 : 0[0] -> 2[0] [send] via NET/Socket/0
+6a3e6142ec3e:5519:5538 [0] NCCL INFO Channel 01/0 : 0[0] -> 2[0] [send] via NET/Socket/0
+6a3e6142ec3e:5519:5537 [1] NCCL INFO Connected all trees
+6a3e6142ec3e:5519:5538 [0] NCCL INFO Connected all trees
+           8             2     float     sum      -1   9995.5    0.00    0.00      0   9914.1    0.00    0.00      0
+          16             4     float     sum      -1   9901.4    0.00    0.00      0   9954.9    0.00    0.00      0
+          32             8     float     sum      -1    10599    0.00    0.00      0    10592    0.00    0.00      0
+          64            16     float     sum      -1    15342    0.00    0.00      0    15305    0.00    0.00      0
+         128            32     float     sum      -1    15418    0.00    0.00      0    15460    0.00    0.00      0
+         256            64     float     sum      -1    15674    0.00    0.00      0    15635    0.00    0.00      0
+         512           128     float     sum      -1    15490    0.00    0.00      0    15618    0.00    0.00      0
+        1024           256     float     sum      -1    15384    0.00    0.00      0    40385    0.00    0.00      0
+6a3e6142ec3e:5519:5540 [0] NCCL INFO comm 0x564ccd3b17a0 rank 0 nranks 4 cudaDev 0 busId 61000 - Destroy COMPLETE
+6a3e6142ec3e:5519:5540 [1] NCCL INFO comm 0x564ccd4392c0 rank 1 nranks 4 cudaDev 1 busId e1000 - Destroy COMPLETE
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 2.12122e-05 
+#

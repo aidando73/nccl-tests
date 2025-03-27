@@ -7,4 +7,5 @@
 - Avg bus bandwidth    : 8.15273e-06
 
 ### 2 nodes 2 GPUs
-- Avg bus bandwidth    : 8.2958e-06
+- 256: Avg bus bandwidth    : 8.2958e-06
+- 1kb: Avg bus bandwidth    : 2.12122e-05
