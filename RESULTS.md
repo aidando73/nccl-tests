@@ -10,4 +10,6 @@
 - 256: Avg bus bandwidth    : 8.2958e-06
 - 1kb: Avg bus bandwidth    : 2.12122e-05
 - 16kb: Avg bus bandwidth    : 0.000264236
-- 32kb: 
+- 32kb: Avg bus bandwidth    : 0.00047809
+- 256kb: Avg bus bandwidth    : 0.0022557
+- 1MB: 
