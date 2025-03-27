@@ -7,13 +7,19 @@ apt install sudo
 adduser mpiuser
 usermod -aG sudo mpiuser
 
-# Master node setup
+MASTER_IP=10.0.167.131
+WORKER_IP=10.0.25.85
+
 su - mpiuser
 ssh-keygen -t rsa
 cd ~/.ssh
 cat id_rsa.pub >> authorized_keys
-ssh-copy-id worker1
 
+# Master node
+ssh-copy-id $WORKER_IP
+
+# Worker node
+ssh-copy-id $MASTER_IP
 
 make MPI=1 MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
 
