@@ -44,6 +44,12 @@ mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_red
 
 
 
+export MASTER_IP="497nwj7n5u5r18.runpod.internal"
+export WORKER_IP="2akfl65n0ptnqb.runpod.internal"
+export NCCL_DEBUG=INFO
+export NCCL_SOCKET_IFNAME=podnet1
+mpirun --verbose -host "$MASTER_IP,$WORKER_IP" /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 256 -f 2 -g 2 --timeout 10
+
 
 # Worker node setup
 apt install sudo
