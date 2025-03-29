@@ -24,6 +24,7 @@ ssh-copy-id $MASTER_IP
 # Both nodes
 make MPI=1 MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
 
+# Master
 export NCCL_DEBUG=INFO
 export NCCL_SOCKET_IFNAME=podnet1
 mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 1M -f 2 -g 8 --timeout 10
