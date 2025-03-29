@@ -7,16 +7,19 @@ apt install sudo
 adduser mpiuser
 usermod -aG sudo mpiuser
 
-apt-get update && apt-get install -y dnsutils && dig 256di66dh21ykp.runpod.internal
-
-MASTER_IP=10.0.123.96
-WORKER_IP=10.0.73.113
 
 su - mpiuser
+
 ssh-keygen -t rsa
 cd ~/.ssh
 cat id_rsa.pub >> authorized_keys
 
+
+
+sudo apt-get update && sudo apt-get install -y dnsutils && dig 256di66dh21ykp.runpod.internal
+
+export MASTER_IP=10.0.123.96
+export WORKER_IP=10.0.73.113
 # Master node
 ssh-copy-id $WORKER_IP
 
