@@ -15,6 +15,7 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 cd /workspace/nccl-tests
 cp sample.envrc .envrc
 ip addr # Then fill in the IPs in the .envrc file on both nodes
+direnv allow
 # Master node
 ssh-copy-id $WORKER_IP
 
