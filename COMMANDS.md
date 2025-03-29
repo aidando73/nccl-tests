@@ -7,8 +7,10 @@ apt install sudo
 adduser mpiuser
 usermod -aG sudo mpiuser
 
-MASTER_IP=10.0.167.131
-WORKER_IP=10.0.25.85
+apt-get update && apt-get install -y dnsutils && dig 256di66dh21ykp.runpod.internal
+
+MASTER_IP=10.0.123.96
+WORKER_IP=10.0.73.113
 
 su - mpiuser
 ssh-keygen -t rsa
