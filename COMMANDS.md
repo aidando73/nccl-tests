@@ -9,15 +9,12 @@ usermod -aG sudo mpiuser
 su - mpiuser
 
 ssh-keygen -t rsa
-cd ~/.ssh
-cat id_rsa.pub >> authorized_keys
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 
-
-sudo apt-get update && sudo apt-get install -y dnsutils && dig 256di66dh21ykp.runpod.internal
-
-export MASTER_IP=10.0.123.96
-export WORKER_IP=10.0.73.113
+cd /workspace/nccl-tests
+cp sample.envrc .envrc
+ip addr # Then fill in the IPs in the .envrc file on both nodes
 # Master node
 ssh-copy-id $WORKER_IP
 
@@ -25,8 +22,11 @@ ssh-copy-id $WORKER_IP
 ssh-copy-id $MASTER_IP
 
 # Both nodes
-cd /workspace/nccl-tests
 make MPI=1 MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
+
+export NCCL_DEBUG=INFO
+export NCCL_SOCKET_IFNAME=podnet1
+mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 1M -f 2 -g 8 --timeout 10
 
 ./build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
 
@@ -38,11 +38,6 @@ export NCCL_DEBUG=INFO
 export NCCL_SOCKET_IFNAME=podnet1
 mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 128M -f 2 -g 2 --timeout 10
 
-export MASTER_IP=10.0.167.131
-export WORKER_IP=10.0.25.85
-export NCCL_DEBUG=INFO
-export NCCL_SOCKET_IFNAME=podnet1
-mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 256 -f 2 -g 2 --timeout 10
 
 # MPI cluster setup
 # Password 123
