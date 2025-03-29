@@ -6,8 +6,6 @@ apt install libnccl2 libnccl-dev
 apt install sudo
 adduser mpiuser
 usermod -aG sudo mpiuser
-
-
 su - mpiuser
 
 ssh-keygen -t rsa
@@ -26,6 +24,8 @@ ssh-copy-id $WORKER_IP
 # Worker node
 ssh-copy-id $MASTER_IP
 
+# Both nodes
+cd /workspace/nccl-tests
 make MPI=1 MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
 
 ./build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
