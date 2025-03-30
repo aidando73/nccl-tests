@@ -36,7 +36,16 @@ make MPI=1 MPI_HOME=/opt/amazon/openmpi NCCL_HOME=/opt/nccl/build CUDA_HOME=/usr
 # Master
 export NCCL_DEBUG=INFO
 source .envrc
-mpirun --verbose -host $MASTER_IP,$WORKER_IP /workspace/nccl-tests/build/all_reduce_perf -b 8 -e 1M -f 2 -g 8 --timeout 10
+/opt/amazon/openmpi/bin/mpirun \
+-x LD_LIBRARY_PATH=/opt/nccl/build/lib:/usr/local/cuda/lib64:/opt/amazon/efa/lib:/opt/amazon/openmpi/lib:/opt/amazon/ofi-nccl/lib:$LD_LIBRARY_PATH \
+--verbose \
+-host $MASTER_IP,$WORKER_IP \
+/workspace/nccl-tests/build/all_reduce_perf \
+-b 8 \
+-e 1M \
+-f 2 \
+-g 8 \
+--timeout 10
 
 ./build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
 
