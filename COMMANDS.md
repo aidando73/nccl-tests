@@ -1,11 +1,11 @@
 ```bash
 # Both nodes
-apt install libopenmpi-dev
-apt install openmpi-bin openmpi-common
-apt install libnccl2 libnccl-dev
-apt install sudo
-adduser mpiuser
-usermod -aG sudo mpiuser
+sudo apt install -y libopenmpi-dev
+sudo apt install -y openmpi-bin openmpi-common
+sudo apt install -y libnccl2 libnccl-dev
+sudo apt install -y sudo
+sudo adduser mpiuser
+sudo usermod -aG sudo mpiuser
 su - mpiuser
 
 ssh-keygen -t rsa
