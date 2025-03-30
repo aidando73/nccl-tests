@@ -13,6 +13,7 @@ ssh-keygen -t rsa
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 cd /workspace/nccl-tests
+sudo chown -R mpiuser:mpiuser .
 sudo chmod -R 777 .
 cp sample.envrc .envrc
 ip addr # Then fill in the IPs in the .envrc file on both nodes
@@ -34,10 +35,13 @@ ssh $MASTER_IP
 make MPI=1 MPI_HOME=/opt/amazon/openmpi NCCL_HOME=/opt/nccl/build CUDA_HOME=/usr/local/cuda
 
 # Master
-export NCCL_DEBUG=INFO
+export NCCL_DEBUG=TRACE
+export FI_LOG_LEVEL=debug
 source .envrc
 /opt/amazon/openmpi/bin/mpirun \
 -x FI_EFA_USE_DEVICE_RDMA=1 \
+-x NCCL_DEBUG=TRACE \
+-x FI_LOG_LEVEL=debug \
 -x LD_LIBRARY_PATH=/opt/nccl/build/lib:/usr/local/cuda/lib64:/opt/amazon/efa/lib:/opt/amazon/openmpi/lib:/opt/amazon/ofi-nccl/lib:$LD_LIBRARY_PATH \
 --verbose \
 -host $MASTER_IP,$WORKER_IP \
