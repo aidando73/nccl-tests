@@ -13,14 +13,21 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 
 cd /workspace/nccl-tests
+sudo chmod -R 777 .
 cp sample.envrc .envrc
 ip addr # Then fill in the IPs in the .envrc file on both nodes
 direnv allow
-# Master node
-ssh-copy-id $WORKER_IP
 
-# Worker node
-ssh-copy-id $MASTER_IP
+# Do for both nodes
+cat ~/.ssh/id_rsa.pub # Copy this
+
+vim ~/.ssh/authorized_keys # On other node & paste in key
+
+# Test connections
+# From master to worker
+ssh $WORKER_IP
+# From worker to master
+ssh $MASTER_IP
 
 # Both nodes
 make MPI=1 MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
@@ -60,4 +67,10 @@ apt install libnccl2 libnccl-dev
 adduser mpiuser
 usermod -aG sudo mpiuser
 # Password 123
+
+
+# Doesn't work
+sudo sed -i 's/^#*PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+sudo sed -i 's/^#*PubkeyAuthentication .*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+sudo systemctl restart sshd
 ```
