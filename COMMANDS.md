@@ -5,26 +5,16 @@ sudo apt install -y openmpi-bin openmpi-common
 sudo apt install -y libnccl2 libnccl-dev
 sudo apt install -y sudo
 
-sudo adduser mpiuser
-sudo usermod -aG sudo mpiuser
-su - mpiuser
-
-ssh-keygen -t rsa
-cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-
-cd /workspace/nccl-tests
-sudo chown -R mpiuser:mpiuser .
-sudo chmod -R 777 .
-cp sample.envrc .envrc
-ip addr # Then fill in the IPs in the .envrc file on both nodes
-direnv allow
-
-# Do for both nodes
-cat ~/.ssh/id_rsa.pub # Copy this
+cat ~/.ssh/id_ed25519.pub # Copy this
 
 vim ~/.ssh/authorized_keys # On other node & paste in key
 
-sudo vim /etc/ssh/sshd_config
+cd /workspace/nccl-tests
+cp sample.envrc .envrc
+aws_metadata_token=`curl --silent -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+echo $(curl --silent -H "X-aws-ec2-metadata-token: $aws_metadata_token" http://169.254.169.254/latest/meta-data/local-ipv4)
+direnv allow
+
 # Test connections
 # From master to worker
 ssh $WORKER_IP
